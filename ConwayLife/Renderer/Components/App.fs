@@ -6,7 +6,7 @@ open System.Windows.Forms
 type App(conwaySeq: ConwaySeq) as this =
     inherit Form(WindowState = FormWindowState.Maximized)
 
-    let mutable konwaySeq = conwaySeq
+    let mutable conwaySeq = conwaySeq
     let updateTimer = new Timer(Interval = Constants.PulseInterval);
     let scene = new Scene()
  
@@ -19,12 +19,12 @@ type App(conwaySeq: ConwaySeq) as this =
     member this.Run() =
       Application.Run this
     
-    member this.Render() = async {
-         let! step = konwaySeq
+    member private this.Render() = async {
+         let! step = conwaySeq
          match step with
          | Item (cfg, next) ->
             scene.Update cfg
-            konwaySeq <- next
+            conwaySeq <- next
          | Ended reason ->
             updateTimer.Stop()
             match reason with
@@ -35,5 +35,4 @@ type App(conwaySeq: ConwaySeq) as this =
             | FinishReason.StateNotChanged -> 
                         MessageBox.Show("Configuration not changed") |> ignore
             Application.Exit()
-
     }

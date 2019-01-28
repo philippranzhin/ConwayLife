@@ -1,8 +1,6 @@
 ﻿namespace Components
 
 open Domain
-open Domain
-open Domain
 open Domain.Types
 open System.Windows.Forms
 open System.Drawing
@@ -10,11 +8,9 @@ open System.Drawing
 type Scene() as this =
     inherit PictureBox()
     
-    let size = 50
     let mutable config: GameConfig Option = None
     do
         this.Dock <- DockStyle.Fill
-        this.BackColor <- System.Drawing.Color.AliceBlue
         this.Paint.Add (fun s -> this.Render s.Graphics)
 
     member this.Update (cfg: GameConfig) =

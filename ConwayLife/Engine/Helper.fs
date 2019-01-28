@@ -10,7 +10,7 @@ module Helper =
         if i < 0 then range
         else i
 
-    let next point range =
+    let private next point range =
         let i = point + 1
         if i > range then 0
         else i
